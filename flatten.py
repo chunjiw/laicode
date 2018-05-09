@@ -44,17 +44,21 @@ class Solution(object):
     self.traverse(fakeroot, root)
     return fakeroot.right
 
-  def traverse(self, fakeroot, root):
+  def traverse(self, leaf, root):
+    # append root as leaf's right child
     if not root:
-      return
+      return leaf
+    # preserve the two children
     left = root.left
     right = root.right
-    root.right = None
+    # should have no left branches in the flattened tree
     root.left = None
-    fakeroot.right = root
-    fakeroot = fakeroot.right
-    self.traverse(fakeroot, left)
-    self.traverse(fakeroot, right)
-    return
+    # append node to flattened tree
+    leaf.right = root
+    # do the same to left child
+    leaf = self.traverse(leaf.right, left)
+    # do the same to right child
+    leaf = self.traverse(leaf, right)
+    return leaf
 
 
