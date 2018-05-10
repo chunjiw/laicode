@@ -3,13 +3,32 @@
 class TreeNode(object):
 
   def __init__(self, x):
-    xlist = list(x)
-    if len(xlist) == 1:
+    if x == '#':
+      self = None
+    elif type(x) is not list:
       self.val = x
       self.left = None
       self.right = None
-    elif len(xlist) > 1:
-      pass
+    else:
+      # construct root
+      self = TreeNode(x.pop(0)) if x else None
+      self.left = TreeNode(x.pop(0)) if x else None
+      self.right = TreeNode(x.pop(0)) if x else None
+      # construct the rest nodes
+      level = [self.left, self.right]
+      while x:
+        nextlevel = list()
+        for parent in level:
+          if parent:
+            if x:
+              parent.left = TreeNode(x.pop(0))
+              nextlevel.append(parent.left)
+            if x:
+              parent.right = TreeNode(x.pop(0))
+              nextlevel.append(parent.right)
+        level = nextlevel
+
+
       
 
   def __str__(self):
