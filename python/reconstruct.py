@@ -65,8 +65,8 @@ class Solution(object):
     root = TreeNode(pre[0])
     if len(pre) > 1:
       root_index_in_in = inn.index(pre[0])
-      in_left = inn[0:root_index_in_in]
-      in_right = inn[root_index_in_in:]
+      in_left = inn[0 : root_index_in_in]
+      in_right = inn[(root_index_in_in + 1) :]
       pre_left = pre[1 : (len(in_left) + 1)]
       pre_right = pre[(len(in_left) + 1) : ]
       root.left = self.reconstruct(in_left, pre_left)
