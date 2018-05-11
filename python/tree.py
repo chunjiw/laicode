@@ -3,33 +3,9 @@
 class TreeNode(object):
 
   def __init__(self, x):
-    if x == '#':
-      self = None
-    elif type(x) is not list:
-      self.val = x
-      self.left = None
-      self.right = None
-    else:
-      # construct root
-      self = TreeNode(x.pop(0)) if x else None
-      self.left = TreeNode(x.pop(0)) if x else None
-      self.right = TreeNode(x.pop(0)) if x else None
-      # construct the rest nodes
-      level = [self.left, self.right]
-      while x:
-        nextlevel = list()
-        for parent in level:
-          if parent:
-            if x:
-              parent.left = TreeNode(x.pop(0))
-              nextlevel.append(parent.left)
-            if x:
-              parent.right = TreeNode(x.pop(0))
-              nextlevel.append(parent.right)
-        level = nextlevel
-
-
-      
+    self.val = x
+    self.left = None
+    self.right = None
 
   def __str__(self):
     return str(self.val)
@@ -37,7 +13,9 @@ class TreeNode(object):
   def traverse_breath_first(self):
     # print tree level by level
     if not self:
+      print "empty tree"
       return
+    print "breath first traverse"
     level = [self]
     while level:
       if any(level):
@@ -55,6 +33,7 @@ class TreeNode(object):
 
   def traverse_pre_order(self):
     # print tree nodes in pre-order
+    print "pre order traverse"
     self._traverse_pre_order_inline(self)
     print
 
@@ -64,3 +43,32 @@ class TreeNode(object):
     print node.val,
     node._traverse_pre_order_inline(node.left)
     node._traverse_pre_order_inline(node.right)
+
+
+def construct_tree(x):
+  # contruct root
+  if not x:
+    return None
+  root = TreeNode(x.pop(0))
+  level = [root]
+  # construct the rest nodes
+  while x:
+    nextlevel = list()
+    for parent in level:
+      if parent:
+        if x:
+          if x[0] != '#':
+            parent.left = TreeNode(x.pop(0))
+            nextlevel.append(parent.left)
+          else:
+            parent.left = None
+            x.pop(0)
+        if x:
+          if x[0] != '#':
+            parent.right = TreeNode(x.pop(0))
+            nextlevel.append(parent.right)
+          else:
+            parent.right = None
+            x.pop(0)
+    level = nextlevel
+  return root
