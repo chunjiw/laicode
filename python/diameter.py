@@ -38,12 +38,10 @@ class Solution(object):
   def getHeight(self, root):
     if not root:
       return 0
-    if not root.left and not root.right:
-      return 1
     return 1 + max(self.getHeight(root.left), self.getHeight(root.right))
 
   def getDiameter(self, root):
-    if not root:
+    if not root or not root.left or not root.right:
       return 0
     return 1 + self.getHeight(root.left) + self.getHeight(root.right)
 
