@@ -1,8 +1,8 @@
 # laicode
 Solutions to LaiCode problems at [<>LAICODE](code.laioffer.com)
 
-Most solutions are written in python.
-Some questions in LaiCode don't accept python implementation, in which cases I provide solutions in java.
+Most solutions are written in python 2.
+Some questions in LaiCode don't accept python implementations, in which cases I provide solutions in java.
 
 ### `tree`: Binary Tree Display and Construction
 
