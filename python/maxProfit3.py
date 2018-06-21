@@ -16,19 +16,26 @@ class Solution(object):
     return: int
     """
     # write your solution here
-    # DP: divide and run buy stock I
-    # Time Complexity: n^2
-    profit = 0
-    for i in range(0, len(array)):
-      profit = max(self.dp(array[0:i]) + self.dp(array[i:len(array)]), profit)
-    return profit
-
-  def dp(self, array):
+    # DP: Run buy stock 1 from left to right, then right to left, and choose the best combination
+    # Time Complexity: n
     if not array:
       return 0
-    buy, profit = array[0], 0
+    # get left and right
+    buy1, profit1, left = array[0], 0, [0]
+    sell2, profit2, right = array[-1], 0, [0]   
     for i in range(1, len(array)):
-      profit = max(profit, array[i] - buy)
-      if array[i] < buy:
-        buy = array[i]
+      profit1 = max(profit1, array[i] - buy1)
+      left.append(profit1)
+      if array[i] < buy1:
+        buy1 = array[i]
+
+      profit2 = max(profit2, sell2 - array[-i-1])
+      right.append(profit2)
+      if array[-i-1] > sell2:
+        sell2 = array[-i-1]
+    right.reverse()
+    # get result
+    profit = left[-1]
+    for i in range(1, len(array) - 1):
+      profit = max(profit, left[i] + right[i + 1])
     return profit
