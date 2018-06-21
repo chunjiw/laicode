@@ -16,11 +16,11 @@ class Solution(object):
     return: int
     """
     # write your solution here
-    # DP: keep a record of when you buy at the low price
-    buy = array[0]
-    profit = 0
+    # DP: start over when the delta is greater than previous over all profit
+    localMax = 0 # keep the stock if no greater delta
+    globalMax = 0
     for i in range(1, len(array)):
-      profit = max(profit, array[i] - buy)
-      if array[i] < buy:
-        buy = array[i]
-    return profit
+      delta = array[i] - array[i - 1]
+      localMax = max(localMax + delta, delta) 
+      globalMax = max(globalMax, localMax)
+    return globalMax
