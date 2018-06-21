@@ -16,22 +16,19 @@ class Solution(object):
     return: int
     """
     # write your solution here
-    first, second, current = 0, 0, 0
-    for i in range(1, len(array)):
-      if array[i - 1] <= array[i]:
-        current += array[i] - array[i - 1]
-      else:  # a transaction finished
-        if current > first:
-          second = first
-          first = current
-        elif current > second:
-          second = current
-        current = 0
-    # need to do the same after the final day
-    if current > first:
-      second = first
-      first = current
-    elif current > second:
-      second = current
+    # DP: divide and run buy stock I
+    # Time Complexity: n^2
+    profit = 0
+    for i in range(0, len(array)):
+      profit = max(self.dp(array[0:i]) + self.dp(array[i:len(array)]), profit)
+    return profit
 
-    return first + second
+  def dp(self, array):
+    if not array:
+      return 0
+    buy, profit = array[0], 0
+    for i in range(1, len(array)):
+      profit = max(profit, array[i] - buy)
+      if array[i] < buy:
+        buy = array[i]
+    return profit
