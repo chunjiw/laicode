@@ -32,15 +32,18 @@ public class Solution {
         if (matrix == null || matrix.length == 0) {
             return;
         }
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (matrix[i][j] == 0) {
                     this.setColRow(matrix, i, j);
                 }
             }
         }
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (matrix[i][j] == 99) {
                     matrix[i][j] = 0;
                 }
@@ -49,15 +52,17 @@ public class Solution {
         return;
     }
 
-  private void setColRow(int[][] matrix, int i, int j) {
+    private void setColRow(int[][] matrix, int i, int j) {
         for (int k = 0; k < matrix.length; k++) {
-            matrix[i][k] = 99;
-            matrix[k][j] = 99;
+            if (matrix[k][j] != 0) {
+                matrix[k][j] = 99;    
+            }
         }
+        for (int k = 0; k < matrix[0].length; k++) {
+            if (matrix[i][k] != 0) {
+                matrix[i][k] = 99;    
+            }
+        } 
         return;
-  }
-
-    public static void main(String[] args) {
-        setZero(null);
     }
 }
