@@ -18,26 +18,31 @@ class Solution(object):
     return: int[]
     """
     # write your solution here
-    if not array or len(array) < 2:
-      return array
-    return self.merge(self.mergeSort(array[0:len(array)/2]), \
-                      self.mergeSort(array[len(array)/2:len(array)]))
+    self.msort(array, 0, len(array))
+    return array
   
-  def merge(self, arr1, arr2):
-    result = []
-    i, j = 0, 0
-    while i < len(arr1) and j < len(arr2):
-      if arr1[i] < arr2[j]:
-        result.append(arr1[i])
+  def msort(self, array, first, last):
+    if first >= last - 1:
+      return
+    mid = (first + last) / 2
+    self.msort(array, first, mid)
+    self.msort(array, mid, last)
+    i, j, k = 0, 0, first
+    left = array[first:mid]
+    right = array[mid:last]
+    while i < len(left) or j < len(right):
+      if i >= len(left):
+        array[k] = right[j]
+        j += 1
+      elif j >= len(right):
+        array[k] = left[i]
+        i += 1
+      elif left[i] < right[j]:
+        array[k] = left[i]
         i += 1
       else:
-        result.append(arr2[j])
+        array[k] = right[j]
         j += 1
-    while i < len(arr1):
-      result.append(arr1[i])
-      i += 1
-    while j < len(arr2):
-      result.append(arr2[j])
-      j += 1
-    return result
+      k += 1
+    return
         
