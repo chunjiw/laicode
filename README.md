@@ -1,5 +1,5 @@
 # laicode
-Solutions to LaiCode problems at [<>LAICODE](code.laioffer.com)
+Solutions to LaiCode problems at [<>LAICODE](https://code.laioffer.com)
 
 Most solutions are written in python 2.
 Some questions in LaiCode don't accept python implementations, in which cases I provide solutions in java.
